@@ -24,19 +24,43 @@ Background: movies have been added to database
 Scenario: restrict to movies with 'PG' or 'R' ratings
   Given I am on the RottenPotatoes home page
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  When I check the "PG" and "R" checkboxes
+  When I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
-  And I uncheck all other checkboxes
+#Then I uncheck the following ratings: G, PG-13
   # enter step to "submit" the search form on the homepage
   Then I press "Refresh"
   # enter step(s) to ensure that PG and R movies are visible
-  Then I should be on the RottenPotatoes home page
-  And I should see moves with ratings of "PG" and "R"
+  Then I should see "The Terminator"
+  And I should see "The Incredibles"
   # enter step(s) to ensure that other movies are not visible
-  And I should not see movies without a rating of "PG" or "R"
+  And I should not see "Chicken Run"
+  And I should not see "The Help"
+  Then the "ratings_PG" checkbox should be checked
+  And the "ratings_R" checkbox should be checked
+  And the "ratings_PG-13" checkbox should not be checked
+  And the "ratings_G" checkbox should not be checked
+  And the "ratings_NC-17" checkbox should not be checked
 
 Scenario: no ratings selected
   # see assignment
+  Given I am on the RottenPotatoes home page
+  When I uncheck the following ratings: G, PG, PG-13, NC-17, R
+  Then I press "Refresh"
+  Then I should see none of the movies
+  Then the "ratings_PG" checkbox should not be checked
+  And the "ratings_R" checkbox should not be checked
+  And the "ratings_PG-13" checkbox should not be checked
+  And the "ratings_G" checkbox should not be checked
+  And the "ratings_NC-17" checkbox should not be checked
 
 Scenario: all ratings selected
   # see assignment
+  Given I am on the RottenPotatoes home page
+  When I check the following ratings: G, PG, PG-13, NC-17, R
+  Then I press "Refresh"
+  Then I should see all of the movies
+  Then the "ratings_PG" checkbox should be checked
+  And the "ratings_R" checkbox should be checked
+  And the "ratings_PG-13" checkbox should be checked
+  And the "ratings_G" checkbox should be checked
+  And the "ratings_NC-17" checkbox should be checked

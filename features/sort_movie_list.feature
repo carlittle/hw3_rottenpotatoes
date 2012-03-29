@@ -24,14 +24,14 @@ Background: movies have been added to database
 Scenario: sort movies alphabetically
   # your steps here
   Given I am on the RottenPotatoes home page
-  When I select "Movie Title"
+  When I follow "Movie Title"
   Then I should be on the RottenPotatoes home page
   And I should see the movies sorted alphabetically
 
 Scenario: sort movies in increasing order of release date
   # your steps here
   Given I am on the RottenPotatoes home page
-  When I select "Release Date"
+  When I follow "Release Date"
   Then I should be on the RottenPotatoes home page
   And I should see the movies sorted in increasing order of release date
 
